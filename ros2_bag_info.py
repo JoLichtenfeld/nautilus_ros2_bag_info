@@ -128,9 +128,11 @@ class ROS2BagInfoExtension(GObject.GObject, Nautilus.MenuProvider):
                 topics_item.set_submenu(topics_submenu)
                 
                 for topic_info in bag_summary['topics']:
+                    # Double underscores required for GTK display
+                    display_name = topic_info['name'].replace('_', '__')
                     topic_menu_item = Nautilus.MenuItem(
                         name=f"ROS2BagInfo::topic_{topic_info['name'].replace('/', '_')}",
-                        label=f"{topic_info['name']}: {topic_info['count']}",
+                        label=f"{display_name}: {topic_info['count']}",
                         tip=f"Topic: {topic_info['name']} | Type: {topic_info['type']} | Messages: {topic_info['count']}"
                     )
                     topics_submenu.append_item(topic_menu_item)
